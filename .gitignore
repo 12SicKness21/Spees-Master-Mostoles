@@ -5,5 +5,5 @@ node_modules/
 .idea/
 .vscode/
 
-# Ignore sensitive project configuration if needed
-# firebase-config.js
+# Configuración sensible de Firebase (no subir al repositorio)
+firebase-config.js
