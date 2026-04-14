@@ -1,0 +1,9 @@
+node_modules/
+.DS_Store
+*.log
+.env
+.idea/
+.vscode/
+
+# Ignore sensitive project configuration if needed
+# firebase-config.js

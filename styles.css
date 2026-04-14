@@ -1,0 +1,1397 @@
+/* ========================================
+   SPEED MASTER MADRID - Stylesheet v2
+   ======================================== */
+
+/* ==================== VARIABLES ==================== */
+:root {
+    /* === PALETA PRINCIPAL === */
+    --brand-dark: #1A1A1D;
+    /* Negro carbón — nav, fondos oscuros         */
+    --brand-slate: #2C3E50;
+    /* Azul pizarra — cards, secciones, headers   */
+    --brand-red: #922B21;
+    /* Rojo carmesí — peligro, averías, logout     */
+    --brand-silver: #BDC3C7;
+    /* Plata — bordes, inputs, texto secundario    */
+    --brand-offwhite: #F4F6F7;
+    /* Blanco hueso — fondo general, cards         */
+
+    /* === COLORES COMPLEMENTARIOS === */
+    --brand-gold: #D4541A;
+    /* Naranja óxido — botón primario / imprimir   */
+    --brand-navy: #1A5276;
+    /* Azul marino — acción confirm, nav-tab activo*/
+    --brand-green: #1E8449;
+    /* Verde esmeralda — éxito, verificar, WA      */
+
+    /* === ALIAS SEMÁNTICOS (mantiene compatibilidad con JS existente) === */
+    --primary: var(--brand-navy);
+    --success: var(--brand-green);
+    --danger: var(--brand-red);
+    --whatsapp: #25D366;
+    --info: var(--brand-navy);
+    --brand-blue: var(--brand-navy);
+    /* alias legacy */
+    --brand-glow: #5D8AA8;
+    /* glow suave para nav-tab activo      */
+
+    --bg: var(--brand-offwhite);
+    --text: #1e293b;
+    --white: #ffffff;
+    --nav-h: 64px;
+}
+
+/* ==================== BASE ==================== */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    margin: 0;
+    padding: 0;
+}
+
+/* ==================== BRAND HEADER (screen hidden, print shown) ==================== */
+.brand-header {
+    background: linear-gradient(135deg, var(--brand-slate) 0%, #1A5276 50%, var(--brand-dark) 100%);
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+.print-only {
+    display: none;
+}
+
+
+/* ==================== NAVIGATION ==================== */
+.main-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--brand-dark);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 16px;
+    height: var(--nav-h);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+    border-bottom: 2px solid var(--brand-slate);
+}
+
+.nav-left {
+    display: flex;
+    gap: 8px;
+    flex: 1;
+}
+
+.nav-tab {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 28px;
+    height: 44px;
+    font-size: 1.05em;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    color: var(--brand-silver);
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid transparent;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.18s;
+    text-transform: uppercase;
+}
+
+.nav-tab:hover {
+    color: #e2e8f0;
+    background: rgba(255, 255, 255, 0.10);
+    border-color: var(--brand-slate);
+}
+
+.nav-tab.active {
+    color: #fff;
+    background: var(--brand-navy);
+    border-color: var(--brand-glow);
+    box-shadow: 0 0 16px rgba(26, 82, 118, 0.5);
+}
+
+.nav-icon {
+    font-size: 1.15em;
+}
+
+/* Botón logout — rojo carmesí para acción destructiva clara */
+.nav-logout {
+    background: var(--brand-red);
+    border: 1px solid var(--brand-red);
+    color: #fff;
+    padding: 8px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.85em;
+    font-weight: 700;
+    transition: all 0.18s;
+}
+
+.nav-logout:hover {
+    background: #7B241C;
+    border-color: #7B241C;
+    color: #fff;
+}
+
+/* ==================== SMS PANEL HEADER ==================== */
+.sms-panel-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: 20px;
+    background: rgba(255, 255, 255, 0.08);
+    padding: 6px 12px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sms-panel-header input {
+    height: 34px;
+    padding: 2px 8px;
+    font-size: 0.9em;
+    border-radius: 6px;
+    border: 1px solid var(--brand-silver);
+    background: #fff;
+    color: var(--brand-dark);
+}
+
+.sms-status-compact {
+    background: var(--brand-green);
+    color: white;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 0.8em;
+    font-weight: 800;
+    box-shadow: 0 0 10px rgba(30, 132, 73, 0.4);
+    white-space: nowrap;
+}
+
+@media (max-width: 1024px) {
+    .sms-panel-header {
+        display: none;
+        /* Hide on smaller screens to avoid overflow */
+    }
+}
+
+/* ==================== AVISAR BUTTON ==================== */
+.btn-avisar-row {
+    background: #25d366;
+    /* WhatsApp Green */
+    color: white;
+    border: none;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-weight: 800;
+    font-size: 0.82em;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    transition: transform 0.15s, filter 0.15s;
+    margin-left: 8px;
+    box-shadow: 0 3px 8px rgba(37, 211, 102, 0.3);
+}
+
+.btn-avisar-row:hover {
+    transform: translateY(-1px);
+    filter: brightness(110%);
+}
+
+.btn-avisar-row span {
+    font-size: 1.1em;
+}
+
+
+/* ==================== PAGES ==================== */
+.page {
+    display: none;
+}
+
+.page.active {
+    display: flex;
+    flex-direction: column;
+}
+
+/* ==================== ORDEN PAGE ==================== */
+.orden-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    /* Distribución igual para ambos lados */
+    gap: 12px;
+    padding: 10px 14px 0;
+    min-height: calc(100vh - var(--nav-h) - 40px);
+}
+
+@media (max-width: 1000px) {
+
+    /* Aumentado de 900px para pantallas industriales cuadradas */
+    .orden-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+.orden-col {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.section-block {
+    background: var(--white);
+    border-radius: 12px;
+    border-top: 3px solid var(--brand-navy);
+    padding: 10px 14px;
+    /* Reducido de 14/16 */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.section-label {
+    font-size: 0.82em;
+    text-transform: uppercase;
+    color: var(--brand-navy);
+    font-weight: 800;
+    margin-bottom: 10px;
+    letter-spacing: 0.06em;
+}
+
+.form-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.form-grid-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+}
+
+@media (max-width: 600px) {
+
+    .form-grid-2,
+    .form-grid-3 {
+        grid-template-columns: 1fr;
+    }
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    font-weight: 600;
+    font-size: 0.82em;
+    margin-bottom: 4px;
+    color: #475569;
+}
+
+input,
+textarea,
+select {
+    padding: 7px 10px;
+    /* Reducido de 9/11 */
+    border: 1.5px solid var(--brand-silver);
+    border-radius: 7px;
+    font-family: inherit;
+    font-size: 0.92em;
+    /* Reducido de 0.95 */
+    transition: all 0.18s;
+    background: var(--brand-offwhite);
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    border-color: var(--brand-navy);
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(26, 82, 118, 0.12);
+}
+
+input[readonly] {
+    background: #e5e7eb;
+    font-weight: 700;
+    color: #374151;
+}
+
+textarea {
+    resize: vertical;
+    min-height: 70px;
+}
+
+/* Sección económica — franja dorada */
+.eco-block {
+    border-top-color: var(--brand-gold);
+}
+
+/* ==================== AVERÍA BUTTONS ==================== */
+.averia-block {
+    flex: 1;
+    border-top-color: var(--brand-red);
+}
+
+.averia-btn-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    /* 2 filas de 3 columnas para los 6 botones */
+    gap: 6px;
+    margin-bottom: 10px;
+}
+
+.averia-btn {
+    background: var(--brand-offwhite);
+    color: var(--brand-slate);
+    border: 1.5px solid var(--brand-silver);
+    border-radius: 8px;
+    padding: 6px 8px;
+    font-size: 0.82em;
+    /* Más pequeño para pantallas industriales */
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.15s;
+    font-family: inherit;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 40px;
+    /* Reducido de 48 */
+    position: relative;
+    user-select: none;
+}
+
+.averia-btn:hover {
+    border-color: var(--brand-red);
+    color: var(--brand-red);
+    background: #fdf0ef;
+}
+
+.averia-btn.selected {
+    background: #FFF8F1;
+    /* Fondo melocotón muy claro */
+    color: var(--brand-gold);
+    border-color: var(--brand-gold);
+    border-width: 3px;
+    /* Borde más grueso */
+    min-height: 80px;
+    padding: 10px;
+    box-shadow: 0 6px 16px rgba(212, 84, 26, 0.25);
+}
+
+.averia-btn.selected .averia-label {
+    font-weight: 800;
+    margin-bottom: 8px;
+    pointer-events: none;
+}
+
+/* El select dentro del botón */
+.select-averia-btn {
+    width: 100%;
+    padding: 6px;
+    border-radius: 4px;
+    border: 1px solid var(--brand-gold);
+    font-size: 0.9em;
+    margin-top: 4px;
+    background: #fff;
+    cursor: pointer;
+}
+
+/* Cruz de deseleccionar */
+.btn-deselect-averia {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    background: var(--brand-gold);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.btn-deselect-averia:hover {
+    background: #A04013;
+}
+
+/* Lista de averías seleccionadas */
+.averia-items {
+    display: none;
+    /* Ocultamos la lista dinámica inferior */
+}
+
+.averia-item-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #fdf0ef;
+    border: 1px solid #e8b4b0;
+    border-radius: 8px;
+    padding: 8px 10px;
+    animation: slideIn 0.15s ease;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-6px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.averia-item-name {
+    flex: 1;
+    font-weight: 600;
+    font-size: 0.88em;
+    color: #7B241C;
+}
+
+.averia-price-select {
+    padding: 5px 8px;
+    border-radius: 6px;
+    border: 1px solid #e8b4b0;
+    background: #fff;
+    font-size: 0.85em;
+    font-weight: 700;
+    color: #374151;
+    cursor: pointer;
+    width: 110px;
+}
+
+.averia-price-input {
+    width: 90px;
+    padding: 5px 8px;
+    border: 1px solid #e8b4b0;
+    border-radius: 6px;
+    font-size: 0.85em;
+    font-weight: 700;
+    background: #fff;
+}
+
+.averia-remove {
+    background: none;
+    border: none;
+    color: #9ca3af;
+    cursor: pointer;
+    font-size: 1.1em;
+    padding: 2px 4px;
+    border-radius: 4px;
+    transition: color 0.15s;
+}
+
+.averia-remove:hover {
+    color: var(--brand-red);
+}
+
+/* Avería libre input row */
+.averia-libre-row {
+    display: flex;
+    gap: 8px;
+    align-items: stretch;
+}
+
+.averia-libre-input {
+    flex: 1;
+    padding: 10px 8px;
+    border: 2px solid var(--brand-silver);
+    border-radius: 8px;
+    font-size: 0.88em;
+    font-family: inherit;
+}
+
+.averia-btn-add {
+    white-space: nowrap;
+    background: var(--brand-offwhite);
+    color: var(--brand-slate);
+    border: 2px dashed var(--brand-silver) !important;
+}
+
+.averia-btn-add:hover {
+    border-color: var(--brand-navy) !important;
+    color: var(--brand-navy);
+    background: #eaf2f8;
+}
+
+/* ==================== SMS PANEL ==================== */
+.sms-panel {
+    background: var(--brand-offwhite);
+    padding: 12px;
+    border: 2px dashed var(--brand-silver);
+    border-radius: 8px;
+}
+
+.sms-status {
+    font-weight: bold;
+    margin-top: 8px;
+    padding: 5px;
+    border-radius: 4px;
+    text-align: center;
+    color: var(--brand-green);
+    display: none;
+}
+
+/* ==================== ORDEN ACTION BUTTONS ==================== */
+.orden-actions-inline {
+    display: flex;
+    gap: 10px;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--brand-silver);
+}
+
+/* Botón principal — naranja óxido, máxima jerarquía visual */
+.btn-imprimir {
+    flex: 1;
+    background: linear-gradient(135deg, #B8430E, var(--brand-gold));
+    color: #ffffff;
+    border: none;
+    padding: 14px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 900;
+    font-size: 1.15em;
+    letter-spacing: 0.04em;
+    transition: all 0.2s;
+    box-shadow: 0 4px 14px rgba(212, 84, 26, 0.45);
+    font-family: inherit;
+}
+
+.btn-imprimir:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(212, 84, 26, 0.6);
+    filter: brightness(108%);
+}
+
+.btn-imprimir:active {
+    transform: translateY(0);
+}
+
+/* Botón de Venta — azul marino elegante */
+.btn-venta {
+    flex: 1;
+    background: linear-gradient(135deg, #154360, var(--brand-navy));
+    color: #ffffff;
+    border: none;
+    padding: 14px 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 900;
+    font-size: 1em;
+    letter-spacing: 0.02em;
+    transition: all 0.2s;
+    box-shadow: 0 4px 14px rgba(26, 82, 118, 0.45);
+    font-family: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+}
+
+.btn-venta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(26, 82, 118, 0.6);
+    filter: brightness(115%);
+}
+
+.averia-btn-price {
+    display: block;
+    font-size: 0.85em;
+    color: #ffd700;
+    font-weight: 800;
+    margin-top: 2px;
+}
+
+.averia-btn.selected .averia-btn-price {
+    color: #fff;
+    opacity: 0.9;
+}
+
+/* Botón secundario — pizarra neutro */
+.btn-limpiar {
+    background: var(--brand-slate);
+    color: white;
+    border: none;
+    padding: 14px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 0.95em;
+    transition: all 0.2s;
+    font-family: inherit;
+}
+
+.btn-limpiar:hover {
+    background: #1a2530;
+    transform: translateY(-1px);
+}
+
+/* ==================== CLIENTES PAGE ==================== */
+.clientes-layout {
+    padding: 16px;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 10px;
+    margin-bottom: 14px;
+}
+
+@media (max-width: 900px) {
+    .stats-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.stat-item {
+    padding: 12px 8px;
+    border-radius: 10px;
+    text-align: center;
+    border: 2px solid transparent;
+    transition: transform 0.15s;
+}
+
+.stat-item:hover {
+    transform: translateY(-2px);
+}
+
+.stat-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 4px;
+    letter-spacing: 0.04em;
+}
+
+.stat-num {
+    font-size: 26px;
+    font-weight: 900;
+}
+
+.stat-total {
+    background: #eaecee;
+}
+
+.stat-total .stat-label {
+    color: var(--brand-slate);
+}
+
+.stat-total .stat-num {
+    color: var(--brand-dark);
+}
+
+.stat-recibido {
+    background: var(--brand-offwhite);
+    border: 1px solid var(--brand-silver);
+}
+
+.stat-recibido .stat-label {
+    color: #64748b;
+}
+
+.stat-recibido .stat-num {
+    color: var(--brand-slate);
+}
+
+.stat-pendiente {
+    background: #fef3c7;
+}
+
+.stat-pendiente .stat-label {
+    color: #b45309;
+}
+
+.stat-pendiente .stat-num {
+    color: #b45309;
+}
+
+.stat-reparando {
+    background: #ffedd5;
+}
+
+.stat-reparando .stat-label {
+    color: #c2410c;
+}
+
+.stat-reparando .stat-num {
+    color: #c2410c;
+}
+
+.stat-finalizado {
+    background: #d5f5e3;
+}
+
+.stat-finalizado .stat-label {
+    color: var(--brand-green);
+}
+
+.stat-finalizado .stat-num {
+    color: var(--brand-green);
+}
+
+.stat-pagado {
+    background: var(--brand-offwhite);
+    border: 1px solid var(--brand-silver);
+}
+
+.stat-pagado .stat-label {
+    color: #64748b;
+}
+
+.stat-pagado .stat-num {
+    color: var(--brand-slate);
+}
+
+/* ==================== TABLA ==================== */
+.table-responsive {
+    overflow-x: auto;
+    border-radius: 10px;
+    border: 1px solid var(--brand-silver);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.92em;
+}
+
+th {
+    background: var(--brand-slate);
+    color: var(--brand-offwhite);
+    font-weight: 700;
+    padding: 13px 14px;
+    text-align: left;
+    border-bottom: 2px solid var(--brand-dark);
+    font-size: 0.85em;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+td {
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--brand-silver);
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+/* Status Row Colors */
+tr.row-RECIBIDO {
+    background: transparent;
+}
+
+tr.row-PENDIENTE {
+    background: #fef3c7;
+}
+
+tr.row-REPARANDO {
+    background: #ffedd5;
+}
+
+tr.row-FINALIZADO {
+    background: #d5f5e3;
+}
+
+tr.row-PAGADO {
+    background: transparent;
+}
+
+tr.row-RECIBIDO:hover {
+    background: var(--brand-offwhite);
+}
+
+tr.row-PENDIENTE:hover {
+    background: #fde68a;
+}
+
+tr.row-REPARANDO:hover {
+    background: #ffedd5;
+    filter: brightness(0.97);
+}
+
+tr.row-FINALIZADO:hover {
+    background: #d5f5e3;
+    filter: brightness(0.97);
+}
+
+tr.row-PAGADO:hover {
+    background: var(--brand-offwhite);
+}
+
+.status-select {
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 0.82em;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    height: 30px;
+}
+
+/* ==================== BADGES ==================== */
+.badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 0.8em;
+    font-weight: 700;
+}
+
+.badge-recibido {
+    background: transparent;
+    border: 1px solid var(--brand-silver);
+    color: #64748b;
+}
+
+.badge-pending {
+    background: #fef3c7;
+    color: #b45309;
+}
+
+.badge-process {
+    background: #ffedd5;
+    color: #c2410c;
+}
+
+.badge-finished {
+    background: #d5f5e3;
+    color: var(--brand-green);
+}
+
+.id-paid {
+    color: var(--brand-green);
+    font-size: 0.8em;
+    border: 1px solid var(--brand-green);
+    padding: 2px 7px;
+    border-radius: 20px;
+    background: #eafaf1;
+    font-weight: bold;
+}
+
+/* ==================== LINKS ==================== */
+.id-link {
+    color: var(--brand-navy);
+    font-weight: 900;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 1.05em;
+    padding: 3px 6px;
+    border-radius: 4px;
+    transition: background 0.15s;
+}
+
+.id-link:hover {
+    background: #eaf2f8;
+    text-decoration: underline;
+}
+
+/* ==================== BUTTONS ==================== */
+.btn {
+    background: var(--brand-navy);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 7px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: filter 0.2s;
+    font-size: 0.95em;
+    font-family: inherit;
+}
+
+.btn:hover {
+    filter: brightness(110%);
+}
+
+/* Botón secundario — azul pizarra neutro */
+.btn-secondary {
+    background: var(--brand-slate);
+}
+
+/* SMS — oro ámbar, destaca como notificación */
+.btn-sms {
+    background: var(--brand-gold);
+    color: var(--brand-dark);
+    padding: 8px 14px;
+    font-size: 0.88em;
+    font-weight: 700;
+}
+
+/* Verificar — verde esmeralda */
+.btn-verify {
+    background: var(--brand-green);
+}
+
+.btn-small {
+    padding: 6px 12px;
+    font-size: 0.82em;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    color: white;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    transition: opacity 0.2s;
+    height: 32px;
+    font-family: inherit;
+}
+
+.btn-small:hover {
+    opacity: 0.88;
+}
+
+/* Imprimir pequeño — pizarra */
+.btn-print {
+    background: var(--brand-slate);
+}
+
+/* WhatsApp — verde propio de la marca */
+.btn-notify {
+    background: var(--whatsapp);
+}
+
+/* ==================== MODAL ==================== */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(26, 26, 29, 0.65);
+    backdrop-filter: blur(2px);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: white;
+    width: 92%;
+    max-width: 600px;
+    max-height: 92vh;
+    border-radius: 14px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.modal-header {
+    padding: 18px 20px;
+    border-bottom: 1px solid var(--brand-silver);
+    display: flex;
+    align-items: center;
+    background: var(--brand-offwhite);
+    border-radius: 14px 14px 0 0;
+}
+
+.close-modal {
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #64748b;
+    transition: color 0.2s;
+    line-height: 1;
+}
+
+.close-modal:hover {
+    color: var(--brand-red);
+}
+
+.modal-body {
+    padding: 22px;
+}
+
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 9px 0;
+    border-bottom: 1px solid var(--brand-offwhite);
+    font-size: 0.93em;
+}
+
+.info-label {
+    font-weight: bold;
+    color: #475569;
+}
+
+.financial-summary {
+    background: #fefaee;
+    border: 1px solid var(--brand-gold);
+    padding: 16px;
+    border-radius: 8px;
+    margin-top: 18px;
+}
+
+.fin-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 7px;
+    font-size: 1.05em;
+}
+
+.fin-total {
+    font-size: 1.35em;
+    font-weight: bold;
+    border-top: 2px solid var(--brand-silver);
+    margin-top: 10px;
+    padding-top: 10px;
+    color: var(--brand-dark);
+}
+
+/* ==================== TOAST ==================== */
+.toast-container {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    pointer-events: none;
+}
+
+.toast {
+    background: var(--brand-slate);
+    color: white;
+    padding: 11px 22px;
+    border-radius: 8px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    font-size: 0.92em;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: auto;
+    border-left: 4px solid var(--brand-gold);
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.toast-success {
+    border-left-color: var(--brand-green);
+}
+
+.toast-error {
+    border-left-color: var(--brand-red);
+}
+
+.toast-info {
+    border-left-color: var(--brand-gold);
+}
+
+
+/* ==================== PRINT LAYOUT ==================== */
+#print-area {
+    display: none;
+}
+
+@media print {
+
+    body,
+    html {
+        margin: 0;
+        padding: 0;
+        height: auto;
+        overflow: visible;
+        background: white;
+        font-family: 'Arial', Courier, monospace;
+        font-size: 14px;
+        color: #000;
+    }
+
+    .main-nav,
+    .page,
+    .modal-overlay,
+    .toast-container {
+        display: none !important;
+    }
+
+    .print-only {
+        display: block !important;
+    }
+
+    #print-area {
+        display: block;
+    }
+
+    /* === THERMAL TICKET — ~80mm roll === */
+    .print-ticket {
+        width: 100%;
+        max-width: 72mm;
+        margin: 0 auto;
+        padding: 4mm 3mm 6mm;
+        box-sizing: border-box;
+        background: #fff;
+        page-break-after: always;
+        /* triggers auto-cut on supported thermal printers */
+        position: relative;
+    }
+
+    .print-ticket:last-child {
+        page-break-after: auto;
+    }
+
+    /* Copy label */
+    .ticket-header-label {
+        display: block;
+        text-align: center;
+        font-size: 9px;
+        font-weight: bold;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        border-bottom: 1px solid #000;
+        padding-bottom: 3px;
+        margin-bottom: 6px;
+    }
+
+    /* Logo header — fully centered */
+    .doc-header {
+        text-align: center;
+        margin-bottom: 6px;
+        display: block;
+    }
+
+    .doc-header img {
+        max-width: 52mm;
+        max-height: 52mm;
+        display: block;
+        margin: 0 auto 3px;
+        object-fit: contain;
+    }
+
+    .doc-title {
+        text-align: center;
+        font-size: 10px;
+        line-height: 1.55;
+    }
+
+    .doc-info {
+        font-size: 10px;
+        text-align: center;
+        margin-top: 4px;
+        line-height: 1.5;
+    }
+
+    /* Client & device info — stacked per line */
+    .doc-client-row,
+    .doc-device-row {
+        display: block;
+        font-size: 13px;
+        margin: 2px 0;
+        line-height: 1.5;
+    }
+
+    .doc-client-row span,
+    .doc-device-row span {
+        display: block;
+    }
+
+    /* Separators */
+    .doc-separator {
+        border: none;
+        border-top: 1px dashed #555;
+        margin: 5px 0;
+    }
+
+    /* Items table */
+    .print-items-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 4px 0;
+        font-size: 13px;
+        font-family: 'Arial', Courier, monospace;
+    }
+
+    .print-items-table th {
+        border-bottom: 1px solid #000;
+        padding: 2px 3px;
+        text-align: left;
+        font-size: 10px;
+        background: transparent;
+        color: #000;
+    }
+
+    .print-items-table td {
+        padding: 3px 3px;
+        vertical-align: top;
+        white-space: normal;
+        color: #000;
+        word-break: break-word;
+        border-bottom: 1px dotted #aaa;
+    }
+
+    /* Totals */
+    .print-totals {
+        margin-top: 6px;
+        border-top: 1px solid #000;
+        padding-top: 4px;
+    }
+
+    .print-total-line {
+        display: flex;
+        justify-content: space-between;
+        font-size: 11px;
+        margin-bottom: 2px;
+    }
+
+    .print-total-main {
+        font-size: 16px;
+        font-weight: 900;
+        margin-top: 4px;
+        border-top: 1px solid #000;
+        padding-top: 3px;
+    }
+
+    .print-iva {
+        text-align: right;
+        font-size: 9px;
+        margin-top: 1px;
+    }
+
+    /* Divider between copies (for auto-cut trigger) */
+    .print-divider {
+        display: block;
+        page-break-after: always;
+        break-after: page;
+        height: 0;
+        margin: 0;
+        border: none;
+    }
+
+    /* Signature footer */
+    .doc-footer {
+        margin-top: 12px;
+        text-align: center;
+        font-size: 11px;
+        line-height: 2.2;
+    }
+
+    .digital-stamp {
+        border: 2px solid #059669;
+        color: #059669;
+        padding: 4px 8px;
+        font-weight: bold;
+        font-size: 10px;
+        display: inline-block;
+        border-radius: 3px;
+    }
+
+    /* Warranty terms */
+    .doc-terms {
+        margin-top: 10px;
+        font-size: 11px;
+        border-top: 1px dashed #777;
+        padding-top: 6px;
+        line-height: 1.5;
+    }
+
+    .doc-terms strong {
+        font-size: 12px;
+        display: block;
+        margin-bottom: 3px;
+    }
+
+    .doc-terms ol {
+        padding-left: 14px;
+        margin: 0;
+    }
+
+    .doc-terms li {
+        margin-bottom: 2px;
+    }
+
+    .p_ticket_number_line {
+        margin-bottom: 8px;
+        padding-bottom: 5px;
+        border-bottom: 1px double #000;
+        text-align: center;
+    }
+
+    .p_ticket_num {
+        font-size: 24px;
+        font-weight: 900;
+        display: block;
+        margin-top: 4px;
+    }
+}
+
+/* ==================== ADDITIONAL INTERACTIVITY ==================== */
+.stat-item {
+    cursor: pointer;
+    transition: transform 0.2s, background 0.2s;
+}
+
+.stat-item:hover {
+    transform: translateY(-2px);
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.stat-item.active-filter {
+    border: 2px solid var(--brand-blue);
+    box-shadow: 0 0 10px rgba(26, 82, 118, 0.3);
+}
+
+.id-link-clickable {
+    color: var(--brand-navy);
+    text-decoration: none;
+    font-weight: 800;
+    padding: 2px 4px;
+    border-radius: 4px;
+    display: inline-block;
+}
+
+.id-link-clickable:hover {
+    background: var(--brand-offwhite);
+    text-decoration: underline;
+    color: var(--brand-gold);
+}

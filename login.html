@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Gestión Equipos</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* ── Login usa la misma paleta que styles.css ── */
+        body {
+            background: linear-gradient(135deg, #1A1A1D 0%, #2C3E50 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .login-container {
+            max-width: 400px;
+            width: 100%;
+            padding: 16px;
+        }
+
+        .login-card {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 24px 48px rgba(0, 0, 0, 0.4);
+            border-top: 4px solid #D4541A;
+            /* Oro ámbar — marca visual */
+        }
+
+        .login-logo {
+            margin-bottom: 24px;
+            text-align: center;
+            animation: fadeIn 1.2s ease-out, float 3s ease-in-out infinite;
+        }
+
+        .login-logo img {
+            max-width: 260px;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-8px);
+            }
+        }
+
+        .login-subtitle {
+            margin-bottom: 28px;
+            color: #64748b;
+            font-size: 0.92em;
+            text-align: center;
+        }
+
+        /* Inputs estilizados con la paleta */
+        .login-card input[type="email"],
+        .login-card input[type="password"] {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1.5px solid #BDC3C7;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 0.95em;
+            background: #F4F6F7;
+            color: #1A1A1D;
+            transition: all 0.18s;
+            box-sizing: border-box;
+        }
+
+        .login-card input:focus {
+            outline: none;
+            border-color: #1A5276;
+            background: #fff;
+            box-shadow: 0 0 0 3px rgba(26, 82, 118, 0.12);
+        }
+
+        /* Botón principal — oro ámbar */
+        .btn-login {
+            width: 100%;
+            padding: 13px 20px;
+            background: linear-gradient(135deg, #B8430E, #D4541A);
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: 800;
+            letter-spacing: 0.04em;
+            cursor: pointer;
+            margin-top: 4px;
+            transition: all 0.2s;
+            box-shadow: 0 4px 14px rgba(212, 84, 26, 0.4);
+            font-family: inherit;
+        }
+
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(212, 84, 26, 0.55);
+            filter: brightness(108%);
+        }
+
+        .btn-login:disabled {
+            opacity: 0.65;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .login-footer {
+            margin-top: 28px;
+            padding-top: 18px;
+            border-top: 1px solid #BDC3C7;
+            color: #64748b;
+            font-size: 0.82em;
+            text-align: center;
+            line-height: 1.7;
+        }
+
+        .login-footer strong {
+            color: #2C3E50;
+        }
+    </style>
+
+    <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-remote-config-compat.js"></script>
+    <script src="firebase-config.js"></script>
+</head>
+
+<body>
+    <div class="login-container">
+        <div class="login-card">
+            <div class="login-logo">
+                <img src="img/intro.png" alt="Speed Master Madrid Logo">
+            </div>
+
+            <p class="login-subtitle">Panel de Gestión de Órdenes</p>
+
+            <form id="loginForm" class="login-form">
+                <input type="email" id="email" placeholder="Correo electrónico" required>
+                <input type="password" id="password" placeholder="Contraseña" required>
+                <button type="submit" class="btn-login">Iniciar Sesión</button>
+            </form>
+
+            <footer class="login-footer">
+                Desarrollado por: <strong>Angelo Rodriguez</strong><br>
+                📞 +34 600 85 47 68
+            </footer>
+
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').onsubmit = async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const btn = e.target.querySelector('button');
+
+            btn.disabled = true;
+            btn.textContent = 'Cargando...';
+
+            try {
+                const userCredential = await auth.signInWithEmailAndPassword(email, password);
+                await validateAndSyncSession(userCredential.user);
+            } catch (error) {
+                alert(error.message);
+                if (error.message.includes('máximo')) {
+                    auth.signOut();
+                }
+                btn.disabled = false;
+                btn.textContent = 'Iniciar Sesión';
+            }
+        };
+
+        auth.onAuthStateChanged(async (user) => {
+            if (user) {
+                try {
+                    await validateAndSyncSession(user);
+                    sessionStorage.setItem('isLogged', 'true');
+                    window.location.replace('index.html');
+                } catch (error) {
+                    alert(error.message);
+                    auth.signOut();
+                }
+            }
+        });
+    </script>
+
+</body>
+
+</html>
