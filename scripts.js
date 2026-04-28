@@ -334,7 +334,7 @@
                 saveLocalOrders(orders);
                 notify(`Estado: PAGADO. Generando Ticket Venta Nº ${ticketNumber}`, 'success');
                 fillPrintArea(orders[idx], 'venta');
-                setTimeout(() => window.print(), 500);
+                executeSplitPrint();
             } else {
                 saveLocalOrders(orders);
                 notify(`Estado actualizado a ${newStatus}`, 'success');
@@ -362,7 +362,7 @@
 
                 notify(`Pago registrado. Generando Ticket Venta Nº ${ticketNumber}`, 'success');
                 fillPrintArea(orders[idx], 'venta');
-                setTimeout(() => window.print(), 500);
+                executeSplitPrint();
 
                 document.getElementById('successTitle').textContent = '✅ PAGO REGISTRADO';
                 document.getElementById('successMessage').textContent = `La orden #${orders[idx].orderNumber} ha sido pagada y cerrada.`;
@@ -652,13 +652,39 @@
         syncClientToFirestore(order); // Sincronizar ficha cliente
         notify(`Venta Nº ${ticketNumber} registrada`, 'success');
         fillPrintArea(order, 'venta');
-        setTimeout(() => window.print(), 400);
+        executeSplitPrint();
         clearForm();
     }
 
     function printDirectly(order) {
         fillPrintArea(order, 'reparacion');
-        setTimeout(() => window.print(), 400);
+        executeSplitPrint();
+    }
+
+    function executeSplitPrint() {
+        const tickets = document.querySelectorAll('.print-ticket');
+        if (tickets.length >= 2) {
+            tickets[1].style.display = 'none';
+            tickets[0].style.display = 'block';
+
+            setTimeout(() => {
+                window.print();
+
+                setTimeout(() => {
+                    tickets[0].style.display = 'none';
+                    tickets[1].style.display = 'block';
+
+                    window.print();
+
+                    setTimeout(() => {
+                        tickets[0].style.display = 'block';
+                        tickets[1].style.display = 'block';
+                    }, 1000);
+                }, 3000);
+            }, 400);
+        } else {
+            setTimeout(() => window.print(), 400);
+        }
     }
 
     function fillPrintArea(order, type = 'reparacion') {
@@ -827,7 +853,7 @@
 
     function printExisting(docId) {
         const order = state.orders.find(o => o.docId === docId);
-        if (order) { fillPrintArea(order); window.print(); }
+        if (order) { fillPrintArea(order); executeSplitPrint(); }
     }
 
     function clearForm() {
