@@ -1248,7 +1248,7 @@ tr.row-PAGADO:hover {
         width: 100%;
         border-collapse: collapse;
         margin: 4px 0;
-        font-size: 13px;
+        font-size: 16px;
         font-family: 'Arial', Courier, monospace;
     }
 
@@ -1256,13 +1256,14 @@ tr.row-PAGADO:hover {
         border-bottom: 1px solid #000;
         padding: 2px 3px;
         text-align: left;
-        font-size: 10px;
+        font-size: 13px;
+        font-weight: bold;
         background: transparent;
         color: #000;
     }
 
     .print-items-table td {
-        padding: 3px 3px;
+        padding: 4px 3px;
         vertical-align: top;
         white-space: normal;
         color: #000;
